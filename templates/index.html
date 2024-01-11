@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Todo List</title>
+</head>
+<body>
+    <h1>Todo List</h1>
+
+    <form method="post" action="{{ url_for('add_task') }}">
+        <label for="task">Task:</label>
+        <input type="text" id="task" name="task" required>
+
+        <label for="due_date">Due Date:</label>
+        <input type="date" id="due_date" name="due_date" required>
+
+        <button type="submit">Add Task</button>
+    </form>
+
+    <ul>
+        {% for task_id, task in enumerate(tasks) %}
+            <li>
+                {{ task['text'] }} - Due: {{ task['due_date'] }}
+                <a href="{{ url_for('delete_task', task_id=task_id) }}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
